@@ -1,0 +1,18 @@
+# Require completed Claude approval through the organization shared workflow.
+name: Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    uses: appointally/.github/.github/workflows/claude-review-reusable.yml@main
+    secrets:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      BUSINESS_RULES_TOKEN: ${{ secrets.BUSINESS_RULES_TOKEN }}
